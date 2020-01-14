@@ -41,7 +41,8 @@ static {
 
 1. 直接下载已经构建好的  [tinyimg.jar](tinyimg.jar)  文件
 2. 以压缩文件的方式打开，注意不要解压！！！找到里面的  `com/ytempest/tinyimg/TinyHelper.class` 文件，将这个文件解压出来
-3. 用 notepad++ 打开这个 `class` 文件【其他编辑器也可以，只要编码格式是 `ANSI` 就可以】，搜索`============your-api============`，将其替换成你的 `API_KEY` 后保存
+3. 用 notepad++ 打开这个 `class` 文件【其他编辑器也可以，只要编码格式是 `ANSI` 就可以】，
+搜索`============your-api============`，将其替换成你的 `API_KEY` 后保存
 4. 将 [tinyimg.jar](tinyimg.jar) 文件中原来的 `TinyHelper.class` 文件替换成我们修改后的 `TinyHelper.class` 文件，这样就可以直接使用了！！！
 
 猜测：Java 源文件编译成 `class` 文件时字符串资源是不会被修改的，只是编码格式改变了，需要注意的是通过这种方式修改的字符串长度必须和源文件的字符串长度保持一致，否则会破坏 `class` 文件的运行
