@@ -6,7 +6,7 @@ TinyPNG 官网地址：[https://tinypng.com/](https://tinypng.com/)
 
 附上一张官网的截图：
 
-![](https://raw.githubusercontent.com/ytempest/TinyImg/master/readme/skypegmwcn.png)
+![](readme/skypegmwcn.png)
 
 <br/>
 
@@ -33,7 +33,7 @@ static {
 
 **三、**  菜单栏选择 Build -> Build Artifacts -> TinyImg.jar -> Build，生成的 tinyimg.jar 就可以直接用了，如下：
 
-![](https://raw.githubusercontent.com/ytempest/TinyImg/master/readme/guide.png)
+![](readme/guide.png)
 
 <br/>
 
