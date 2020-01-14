@@ -1,4 +1,4 @@
-# TinyPNG
+# TinyPNG 简介
 
 TinyPNG 是一个在线压缩 PNG 或 JPEG 格式图片的工具，同时压缩质量比较好。
 
