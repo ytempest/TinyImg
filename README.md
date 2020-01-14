@@ -6,7 +6,7 @@ TinyPNG 官网地址：[https://tinypng.com/](https://tinypng.com/)
 
 附上一张官网的截图：
 
-![](readme/skypegmwcn.png)
+![](https://raw.githubusercontent.com/ytempest/TinyImg/master/readme/skypegmwcn.png)
 
 <br/>
 
@@ -33,13 +33,13 @@ static {
 
 **三、**  菜单栏选择 Build -> Build Artifacts -> TinyImg.jar -> Build，生成的 tinyimg.jar 就可以直接用了，如下：
 
-![](readme/guide.png)
+![](https://raw.githubusercontent.com/ytempest/TinyImg/master/readme/guide.png)
 
 <br/>
 
 **如果想偷懒可以试试下面的方法：**
 
-1. 直接下载已经构建好的  [tinyimg.jar](https://github.com/ytempest/TinyImg/raw/master/tinyimg.jar)  文件
+1. 直接下载已经构建好的  [tinyimg.jar](https://raw.githubusercontent.com/ytempest/TinyImg/master/tinyimg.jar)  文件
 2. 以压缩文件的方式打开，注意不要解压！！！找到里面的  `com/ytempest/tinyimg/TinyHelper.class` 文件，将这个文件解压出来
 3. 用 notepad++ 打开这个 `class` 文件【其他编辑器也可以，只要编码格式是 `ANSI` 就可以】，
 搜索`============your-api============`，将其替换成你的 `API_KEY` 后保存
