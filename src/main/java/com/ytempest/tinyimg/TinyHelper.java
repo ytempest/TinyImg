@@ -40,15 +40,15 @@ public class TinyHelper {
     public static void compress(String srcFilePath, String tarFilePath) {
         try {
             LogUtils.d("upload and compress : " + srcFilePath);
+            long beforeSize = new File(srcFilePath).length();
             Source source = Tinify.fromFile(srcFilePath);
             Result result = source.result();
 
             LogUtils.d("download to : " + srcFilePath);
+            long afterSize = result.size();
             result.toFile(tarFilePath);
 
-            long beforeSize = new File(srcFilePath).length();
-            long afterSize = result.size();
-            LogUtils.d("finish compress : " + srcFilePath + "  size: " + beforeSize + "->" + afterSize);
+            LogUtils.d(String.format("finish compress : %s, size: %skb -> %skb", srcFilePath, beforeSize, afterSize));
         } catch (Exception e) {
             LogUtils.e("Fail to compress : " + srcFilePath);
             LogUtils.e("The error message is: " + e.getMessage());
