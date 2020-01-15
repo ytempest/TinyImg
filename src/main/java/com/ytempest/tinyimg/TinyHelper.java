@@ -3,9 +3,12 @@ package com.ytempest.tinyimg;
 import com.tinify.AccountException;
 import com.tinify.ClientException;
 import com.tinify.ConnectionException;
+import com.tinify.Result;
 import com.tinify.ServerException;
 import com.tinify.Source;
 import com.tinify.Tinify;
+
+import java.io.File;
 
 /**
  * @author heqidu
@@ -17,6 +20,10 @@ public class TinyHelper {
         // TODO : set your Tinify API
         Tinify.setKey("============your-api============");
         Tinify.client();
+    }
+
+    public static int getUsedCount() {
+        return Tinify.compressionCount();
     }
 
     /**
@@ -34,11 +41,14 @@ public class TinyHelper {
         try {
             LogUtils.d("upload and compress : " + srcFilePath);
             Source source = Tinify.fromFile(srcFilePath);
+            Result result = source.result();
 
             LogUtils.d("download to : " + srcFilePath);
-            source.toFile(tarFilePath);
+            result.toFile(tarFilePath);
 
-            LogUtils.d("finish compress : " + srcFilePath);
+            long beforeSize = new File(srcFilePath).length();
+            long afterSize = result.size();
+            LogUtils.d("finish compress : " + srcFilePath + "  size: " + beforeSize + "->" + afterSize);
         } catch (Exception e) {
             LogUtils.e("Fail to compress : " + srcFilePath);
             LogUtils.e("The error message is: " + e.getMessage());

@@ -127,6 +127,8 @@ public class TinyImg {
 
         try {
             latch.await();
+
+            LogUtils.d("Already used count : " + TinyHelper.getUsedCount());
             LogUtils.d("===============finish compress===============");
         } catch (Exception e) {
             LogUtils.e("unknown error : " + e.getMessage());
