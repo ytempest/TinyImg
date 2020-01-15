@@ -1,6 +1,6 @@
 
 
-[![Donate](https://img.shields.io/badge/语言-中文-green.svg)](README_ZH.md)
+[![中文文档](https://img.shields.io/badge/语言-中文-green.svg)](README_ZH.md)
 
 
 

@@ -1,4 +1,4 @@
-[![Donate](https://img.shields.io/badge/Language-English-green.svg)](README.md)
+[![English Document](https://img.shields.io/badge/Language-English-green.svg)](README.md)
 
 
 
