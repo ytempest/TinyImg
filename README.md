@@ -24,9 +24,9 @@ The main reason for writing this script at that time was that many scripts of Ti
 
 ## Preparation
 
-**Fisrt, ** apply an  `API_KEY` in [TinyPNG](https://tinypng.com/). Note:  Each `API_KEY` only can be compress 500 images every month. Of course,  you can apply more `API_KEY` in multiple mailboxes.  Then the size of each compressed image can't be more then 5 M.
+**Fisrt,** apply an  `API_KEY` in [TinyPNG](https://tinypng.com/). Note:  Each `API_KEY` only can be compress 500 images every month. Of course,  you can apply more `API_KEY` in multiple mailboxes.  Then the size of each compressed image can't be more then 5 M.
 
-**Second，** Pull the TinyImg prject and open it use IDEA，find the `TinyHelper.java` .
+**Second,** Pull the TinyImg prject and open it use IDEA，find the `TinyHelper.java` .<br/>
 Replace `============your api============` to your `API_KEY`，as follows：
 
 ```
@@ -37,7 +37,7 @@ static {
 }
 ```
 
-**Third,  ** select in menu bar : Build -> Build Artifacts -> TinyImg.jar -> Build, the jar can be use directly after generate,  as follows:
+**Third,** select in menu bar : Build -> Build Artifacts -> TinyImg.jar -> Build, the jar can be use directly after generate,  as follows:
 
 ![](readme/guide.png)
 
@@ -47,8 +47,7 @@ static {
 
 1. Dowload the [tinyimg.jar](https://raw.githubusercontent.com/ytempest/TinyImg/master/tinyimg.jar) file had build successfully
 2. Open it as zip file, but didn't unzip!  find the file `com/ytempest/tinyimg/TinyHelper.class` inside,  and unzip this file.
-3. Open thd `class` file in noptepadd++ [Other edtior also can as long as its encoding format is `ANSI` ]
-   search `============your-api============` in file,  replace it to your `API_KEY` and save.
+3. Open thd `class` file in noptepadd++ [Other edtior also can as long as its encoding format is `ANSI` ]. <br/>Search `============your-api============` in file and replace it to your `API_KEY` and save.
 4. Replace the original  `TinyHelper.class`  in [tinyimg.jar](https://raw.githubusercontent.com/ytempest/TinyImg/master/tinyimg.jar) to a new `TinyHelper.class` modify by us. Congratulation,  you can use it now.
 
 Guess: When the Java source file is compiled into a `class` file,  the string resource will not be modified,  but the encoding format has changed.  Note that the string length modified in this way must be consistent with the string length of the source file, otherwise the operation of the `class` file will be damaged
