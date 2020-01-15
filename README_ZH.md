@@ -22,7 +22,7 @@ TinyPNG 官网地址：[https://tinypng.com/](https://tinypng.com/)
 
 ## 准备工作
 
-**一、**  到 [TinyPNG](https://tinypng.com/) 申请 `API_KEY`，注意：每个 `API_KEY` 每个月只能压缩 500 张图片，当然你用多个邮箱申请多个 `API_KEY`，每次压缩的图片大小不能超过 5 M。
+**一、**  到 [TinyPNG](https://tinypng.com/developers) 申请 `API_KEY`，注意：每个 `API_KEY` 每个月只能压缩 500 张图片，当然你用多个邮箱申请多个 `API_KEY`，每次压缩的图片大小不能超过 5 M。
 
 **二、**  拉取 TinyImg 工程，并用 IDEA 打开，定位到 `TinyHelper.java` 类
 将 `============your api============` 替换你的 `API_KEY`，如下：

@@ -24,7 +24,7 @@ The main reason for writing this script at that time was that many scripts of Ti
 
 ## Preparation
 
-**Fisrt,** apply an  `API_KEY` in [TinyPNG](https://tinypng.com/). Note:  Each `API_KEY` only can be compress 500 images every month. Of course,  you can apply more `API_KEY` in multiple mailboxes.  Then the size of each compressed image can't be more then 5 M.
+**Fisrt,** apply an  `API_KEY` in [TinyPNG](https://tinypng.com/developers). Note:  Each `API_KEY` only can be compress 500 images every month. Of course,  you can apply more `API_KEY` in multiple mailboxes.  Then the size of each compressed image can't be more then 5 M.
 
 **Second,** Pull the TinyImg prject and open it use IDEA，find the `TinyHelper.java` .<br/>
 Replace `============your api============` to your `API_KEY`，as follows：
