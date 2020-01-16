@@ -19,4 +19,8 @@ public class Utils {
         }
         return null;
     }
+
+    public static boolean isEmpty(String string) {
+        return string == null || string.length() == 0;
+    }
 }

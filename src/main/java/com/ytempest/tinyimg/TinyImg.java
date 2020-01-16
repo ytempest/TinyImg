@@ -1,6 +1,10 @@
 package com.ytempest.tinyimg;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -11,115 +15,157 @@ import java.util.concurrent.Executors;
  */
 public class TinyImg {
 
-    private static boolean printHelp(String[] args) {
-        if (Utils.getSize(args) == 0) {
-            return false;
-        }
+    private static final OptionsHandler handler;
 
-        if (!"-h".equals(args[0]) && !"--help".equals(args[0])) {
-            return false;
-        }
+    static {
+        HashMap<String, Boolean> support = new HashMap<>();
+        support.put("-h", false);
+        support.put("-i", true);
+        support.put("-o", true);
+        support.put("-r", false);
+        support.put("-k", true);
+        handler = new OptionsHandler(support);
+    }
 
+    private static void printHelp() {
         LogUtils.d("Compress image by TinyPng, which only support JPEG and PNG.");
         LogUtils.d("Before use this script, you need to apply an API_KEY from TinyPNG");
-        LogUtils.d("Link : https://tinypng.com/");
+        LogUtils.d("Link : https://tinypng.com/developers");
         LogUtils.d("Usage:");
         LogUtils.d("==============================================================");
-        LogUtils.d("script [INPUT] [OUTPUT]");
-        LogUtils.d("    [INPUT]    Image file or directory of image file which need compress. Default use current directory if not set");
-        LogUtils.d("    [OUTPUT]   The result of compress you want to save.");
-        LogUtils.d("               1. If input is file, which request output to file. Default override image file if not set");
-        LogUtils.d("               2. If input is directory, which request output directory. Default override image of directory if not set");
-        return true;
+        LogUtils.d("java -jar tinyimg.jar [OPTIONS] [ARGS]");
+        LogUtils.d("    -k      [API_KEY]         The key you apply from TinyPNG, if not set use built-in key that not sure whether effective");
+        LogUtils.d("    -i      [INPUT_PATH]      Image file or directory include image file which need compress. Default use current directory if not set");
+        LogUtils.d("    -o      [OUTPUT_PATH]     Output of compress, it will be override original file if not set");
+        LogUtils.d("    -r                        When input is directory, set this option will be compress all the image under directory and child directory");
     }
 
     public static void main(String[] args) {
-        if (printHelp(args)) {
-            return;
+        Map<String, String> options = null;
+        try {
+            options = handler.handleOptions(args);
+        } catch (IllegalArgumentException e) {
+            LogUtils.e(e.getMessage());
+            System.exit(-1);
         }
+
+        String input = null;
+        String output = null;
+        boolean isRecursive = false;
+        for (Map.Entry<String, String> entry : options.entrySet()) {
+            String option = entry.getKey();
+            switch (option) {
+                case "-h":
+                    printHelp();
+                    System.exit(0);
+                    break;
+
+                case "-i":
+                    input = entry.getValue();
+                    break;
+
+                case "-o":
+                    output = entry.getValue();
+                    break;
+
+                case "-r":
+                    isRecursive = true;
+                    break;
+
+                case "-k":
+                    String key = entry.getValue();
+                    LogUtils.d("Use key : " + key);
+                    TinyHelper.setKey(key);
+                    break;
+
+                default:
+                    LogUtils.e("unknown error");
+                    return;
+            }
+        }
+
+        File inputFile = input != null ? new File(input) : FileUtils.getCurrentDir();
+        File outputFile = output != null ? new File(output) : inputFile;
 
         // 检查输入文件或目录是否存在
-        String inputPath = Utils.get(args, 0);
-        if (inputPath != null && !new File(inputPath).exists()) {
-            LogUtils.d("error: " + inputPath + " not exist!!!");
+        if (input != null && !new File(input).exists()) {
+            LogUtils.e(input + " didn't exist!!!");
             return;
         }
 
-        if (Utils.getSize(args) >= 1) {
-            String srcFilePath = Utils.get(args, 0);
-            String tarFilePath = Utils.get(args, 1);
-            if (new File(srcFilePath).isFile()) {
-                if (tarFilePath == null) {
-                    tarFilePath = srcFilePath;
-                }
-                LogUtils.d("Input File : " + srcFilePath);
-                LogUtils.d("Output File : " + tarFilePath);
-                compressFile(srcFilePath, tarFilePath);
-                System.exit(1);
-            }
-        }
+        if (inputFile.isFile()) {
+            compressFile(inputFile, outputFile);
 
-        File inputDir;
-        File outputDir;
-        if (Utils.getSize(args) == 0) {
-            inputDir = FileUtils.getCurrentDir();
-            outputDir = inputDir;
-
-        } else if (Utils.getSize(args) == 1) {
-            inputDir = new File(args[0]);
-            outputDir = inputDir;
+        } else if (inputFile.isDirectory()) {
+            compressDirectory(inputFile, outputFile, isRecursive);
 
         } else {
-            inputDir = new File(args[0]);
-            outputDir = new File(args[1]);
-            if (!outputDir.exists() && !outputDir.mkdirs()) {
-                LogUtils.d("error: Output Directory error!!!");
-                return;
+            LogUtils.e("Can't be identify the file : " + inputFile.getAbsolutePath());
+        }
+        System.exit(1);
+    }
+
+    private static void compressFile(File inputFile, File outputFile) {
+        List<File> files = new LinkedList<>();
+        files.add(inputFile);
+        compress(files, new Callback() {
+            @Override
+            public File getOutFile(File inFile) {
+                return new File(outputFile.getAbsolutePath());
             }
+        });
+    }
+
+    private static void compressDirectory(File inputDir, final File outputDir, boolean isRecursive) {
+        if (outputDir.exists() && outputDir.isFile()) {
+            LogUtils.e("Output is file, please set the directory");
+            return;
         }
 
-        File[] srcFileList = FileUtils.listImageFile(inputDir);
-        if (srcFileList == null || srcFileList.length == 0) {
-            LogUtils.d("error: " + inputDir.getAbsolutePath() + " didn't have image file");
+        if (!outputDir.exists() && !outputDir.mkdirs()) {
+            LogUtils.e("Fail to create output directory");
+            return;
+        }
+
+        List<File> srcFileList = FileUtils.listImageFile(inputDir, isRecursive);
+        if (srcFileList.size() == 0) {
+            LogUtils.e(inputDir.getAbsolutePath() + " didn't have image file");
             return;
         }
 
         LogUtils.d("Input Directory : " + inputDir.getAbsolutePath());
         LogUtils.d("Output Directory : " + outputDir.getAbsolutePath());
-        compressFile(srcFileList, outputDir);
-        System.exit(1);
-    }
 
-    private static void compressFile(String srcFilePath, final String tarFilePath) {
-        File[] files = {new File(srcFilePath)};
-        compress(files, new Callback() {
+        compress(srcFileList, new Callback() {
             @Override
             public File getOutFile(File inFile) {
-                return new File(tarFilePath);
+                // 获取输入文件和输出路径的不同
+                String relativePath = inFile.getAbsolutePath().replace(inputDir.getAbsolutePath(), "");
+                File relativeFile = new File(relativePath);
+                // 获取输入文件相对于输出文件的路径
+                File outDir = new File(outputDir.getAbsolutePath() + relativeFile.getParent());
+                if (!outDir.exists() && !outDir.mkdirs()) {
+                    LogUtils.e("Skip file " + inFile.getAbsolutePath() + " by reason of fail to create directory : " + outDir.getAbsolutePath());
+                    return null;
+                }
+                return new File(outDir, inFile.getName());
             }
         });
     }
 
-    private static void compressFile(File[] files, final File outputDir) {
-        compress(files, new Callback() {
-            @Override
-            public File getOutFile(File inFile) {
-                return new File(outputDir, inFile.getName());
-            }
-        });
-    }
-
-    private static void compress(File[] inFiles, final Callback callback) {
+    private static void compress(List<File> inFiles, final Callback callback) {
         LogUtils.d("===============start compress===============");
 
-        final CountDownLatch latch = new CountDownLatch(inFiles.length);
+        final CountDownLatch latch = new CountDownLatch(inFiles.size());
         ExecutorService executor = Executors.newCachedThreadPool();
         for (final File inFile : inFiles) {
             executor.execute(new Runnable() {
                 @Override
                 public void run() {
                     File outFile = callback.getOutFile(inFile);
-                    TinyHelper.compress(inFile.getAbsolutePath(), outFile.getAbsolutePath());
+                    if (outFile != null) {
+                        TinyHelper.compress(inFile.getAbsolutePath(), outFile.getAbsolutePath());
+                    }
                     latch.countDown();
                 }
             });

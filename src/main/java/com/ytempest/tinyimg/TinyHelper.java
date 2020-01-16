@@ -17,8 +17,11 @@ import java.io.File;
 public class TinyHelper {
 
     static {
-        // TODO : set your Tinify API
-        Tinify.setKey("============your-api============");
+        setKey("FC8dkDxbNVlJHL9JpmfCT0YzzRgVXZXT");
+    }
+
+    public static void setKey(String key) {
+        Tinify.setKey(key);
     }
 
     public static int getUsedCount() {
@@ -53,10 +56,10 @@ public class TinyHelper {
             LogUtils.e("The error message is: " + e.getMessage());
 
             if (e instanceof AccountException) {
-                LogUtils.e("Verify your API key and account limit, please");
+                LogUtils.e("Please verify your API key and account limit");
 
             } else if (e instanceof ClientException) {
-                LogUtils.e("Check your source image and request options, please");
+                LogUtils.e("Please check your source image and request options");
 
             } else if (e instanceof ServerException) {
                 LogUtils.e("Temporary issue with the Tinify API");
