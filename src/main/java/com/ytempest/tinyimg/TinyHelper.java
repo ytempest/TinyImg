@@ -19,7 +19,6 @@ public class TinyHelper {
     static {
         // TODO : set your Tinify API
         Tinify.setKey("============your-api============");
-        Tinify.client();
     }
 
     public static int getUsedCount() {
