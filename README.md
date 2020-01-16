@@ -76,7 +76,7 @@ Please ensure JDK Environment,  setup it if didn''t had.
 
 #### Example
 
-###### 1、Compress single image file：
+##### 1、Compress single image file：
 
 Example：`java -jar tinyimg.jar inputImgPath outputImgPath`
 
@@ -88,7 +88,7 @@ Explain：
 
 <br/>
 
-###### 2、Compress image file under directory：
+##### 2、Compress image file under directory：
 
 Example One ：`java -jar tinyimg.jar`
 
@@ -107,19 +107,19 @@ Explain：
 
 - `outputDirPath`：The path of output after compress finish. [Selectable,  default override if not set]
 
-###### 3、Set the `API_KEY` of TinyPNG
+##### 3、Set the `API_KEY` of TinyPNG
 
 Example：`java -jar tingyimg.jar -s FC8dkDxbNVlJHL9JpmfCT0YzzRgVXZXT`
 
 <br/>
 
-###### 4、Compress image under directory recursively
+##### 4、Compress image under directory recursively
 
 示例：`java -jar tinypng.jar -r`
 
 <br/>
 
-### Updates
+## Updates
 
 - v1.0 support compress single image file and direcotry include image
 - v1.1 add the support of options，and improve the process

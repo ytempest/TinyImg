@@ -75,7 +75,7 @@ static {
 
 #### 使用示例
 
-###### 1、压缩单个图片文件：
+##### 1、压缩单个图片文件：
 
 示例：`java -jar tinyimg.jar -i inputImgPath -o outputImgPath`
 
@@ -87,7 +87,7 @@ static {
 
 <br/>
 
-###### 2、压缩文件夹下的图片文件：
+##### 2、压缩文件夹下的图片文件：
 
 示例1：`java -jar tinyimg.jar`
 
@@ -109,19 +109,19 @@ static {
 
 <br/>
 
-######  3、指定 TinyPNG 的 `API_KEY`
+#####  3、指定 TinyPNG 的 `API_KEY`
 
 示例：`java -jar tingyimg.jar -s FC8dkDxbNVlJHL9JpmfCT0YzzRgVXZXT`
 
 <br/>
 
-######  4、使用递归压缩文件夹下所有
+#####  4、使用递归压缩文件夹下所有
 
 示例：`java -jar tinypng.jar -r`
 
 <br/>
 
-### 三、更新日志
+## 三、更新日志
 
 - v1.0 支持压缩单个图片文件和批量图片文件
 - v1.1 添加命令选项支持，完善流程
