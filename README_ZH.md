@@ -1,4 +1,4 @@
-[![English Document](https://img.shields.io/badge/Language-English-green.svg)](README.md)
+[![English Document](https://img.shields.io/badge/Language-English-green.svg)](README.md) ![](https://img.shields.io/badge/版本-1.1.0-green.svg)
 
 
 
@@ -25,13 +25,11 @@ TinyPNG 官网地址：[https://tinypng.com/](https://tinypng.com/)
 **一、**  到 [TinyPNG](https://tinypng.com/developers) 申请 `API_KEY`，注意：每个 `API_KEY` 每个月只能压缩 500 张图片，当然你用多个邮箱申请多个 `API_KEY`，每次压缩的图片大小不能超过 5 M。
 
 **二、**  拉取 TinyImg 工程，并用 IDEA 打开，定位到 `TinyHelper.java` 类
-将 `============your api============` 替换你的 `API_KEY`，如下：
+将 `FC8dkDxbNVlJHL9JpmfCT0YzzRgVXZXT` 替换你的 `API_KEY`，如下：
 
 ```
 static {
-    // TODO : set your Tinify API
-    Tinify.setKey("============your api============");
-    Tinify.client();
+    setKey("FC8dkDxbNVlJHL9JpmfCT0YzzRgVXZXT");
 }
 ```
 
@@ -46,7 +44,7 @@ static {
 1. 直接下载已经构建好的  [tinyimg.jar](https://raw.githubusercontent.com/ytempest/TinyImg/master/tinyimg.jar)  文件
 2. 以压缩文件的方式打开，注意不要解压！！！找到里面的  `com/ytempest/tinyimg/TinyHelper.class` 文件，将这个文件解压出来
 3. 用 notepad++ 打开这个 `class` 文件【其他编辑器也可以，只要编码格式是 `ANSI` 就可以】，
-搜索`============your-api============`，将其替换成你的 `API_KEY` 后保存
+搜索`FC8dkDxbNVlJHL9JpmfCT0YzzRgVXZXT`，将其替换成你的 `API_KEY` 后保存
 4. 将 [tinyimg.jar](tinyimg.jar) 文件中原来的 `TinyHelper.class` 文件替换成我们修改后的 `TinyHelper.class` 文件，这样就可以直接使用了！！！
 
 猜测：Java 源文件编译成 `class` 文件时字符串资源是不会被修改的，只是编码格式改变了，需要注意的是通过这种方式修改的字符串长度必须和源文件的字符串长度保持一致，否则会破坏 `class` 文件的运行
@@ -63,9 +61,23 @@ static {
 
 ### 二、使用说明
 
-1、压缩单个图片文件：
+#### 脚本选项
 
-示例：`java -jar tinyimg.jar inputImgPath outputImgPath`
+|选项|参数|说明|示例|
+| :---- | -------- | ---------------------------------- | --------------------------------------- |
+|   |          | 压缩当前文件夹下图片文件       | `java -jar tingyimg.jar`        |
+| `－k` | `APK_KEY` | 从 TinyPNG 申请的 `API_KEY` | `java -jar tinyimg.jar -k API_KYE` |
+| `－i` | 输入路径 | 图片路路径或文件夹路径 | `java -jar tinyimg.jar -i inputPath` |
+| `-o` | 输出路劲 | 图片路径或文件夹路径 | `java -jar tinyimg.jar -o outputPath` |
+| `-r` |  | 输入为文件夹时压缩文件夹下所有图片 | `java -jar tinyimg.jar -r` |
+
+<br/>
+
+#### 使用示例
+
+###### 1、压缩单个图片文件：
+
+示例：`java -jar tinyimg.jar -i inputImgPath -o outputImgPath`
 
 说明：
 
@@ -75,7 +87,7 @@ static {
 
 <br/>
 
-2、压缩文件夹下的图片文件：
+###### 2、压缩文件夹下的图片文件：
 
 示例1：`java -jar tinyimg.jar`
 
@@ -83,11 +95,11 @@ static {
 
 - 默认压缩当前目录下的图片文件，并覆盖原文件；
 - 如果你想压缩当前目录下的图片文件，并输出到指定目录，你可以用：
-  `java -jar tinyimg.jar . outputDirPath`
+  `java -jar tinyimg.jar -i . -o outputDirPath`
 
 <br/>
 
-示例2：`java -jar tinyimg.jar inputDirPath outputDirPath`
+示例2：`java -jar tinyimg.jar -i inputDirPath -o outputDirPath`
 
 说明：
 
@@ -95,5 +107,25 @@ static {
 
 - `outputDirPath`：压缩后的图像输出文件夹【可选，不设置默认覆盖原文件】
 
+<br/>
 
+######  3、指定 TinyPNG 的 `API_KEY`
 
+示例：`java -jar tingyimg.jar -s FC8dkDxbNVlJHL9JpmfCT0YzzRgVXZXT`
+
+<br/>
+
+######  4、使用递归压缩文件夹下所有
+
+示例：`java -jar tinypng.jar -r`
+
+<br/>
+
+### 三、更新日志
+
+- v1.0 支持压缩单个图片文件和批量图片文件
+- v1.1 添加命令选项支持，完善流程
+  - 支持指定 TinyPNG 的 `API_KEY`
+  - 支持递归压缩文件夹下所有图片文件
+
+<br/>
