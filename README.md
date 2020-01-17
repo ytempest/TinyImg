@@ -43,7 +43,7 @@ static {
 
 **Want to simple? You can try  the way** 
 
-1. Dowload the [tinyimg.jar](https://raw.githubusercontent.com/ytempest/TinyImg/master/tinyimg.jar) file had build successfully
+1. Dowload the [tinyimg.jar](https://raw.githubusercontent.com/ytempest/TinyImg/master/tinyimg.jar) file had build successfully. This file have a built-in `API_KEY`.  I am not sure the `API_KEY` whether effective,  so you had better replace it to your `API_KEY`
 2. Open it as zip file, but didn't unzip!  find the file `com/ytempest/tinyimg/TinyHelper.class` inside,  and unzip this file.
 3. Open thd `class` file in noptepadd++ [Other edtior also can as long as its encoding format is `ANSI` ]. <br/>Search `FC8dkDxbNVlJHL9JpmfCT0YzzRgVXZXT` in file and replace it to your `API_KEY` and save.
 4. Replace the original  `TinyHelper.class`  in [tinyimg.jar](https://raw.githubusercontent.com/ytempest/TinyImg/master/tinyimg.jar) to a new `TinyHelper.class` modify by us. Congratulation,  you can use it now.
@@ -66,7 +66,8 @@ Please ensure JDK Environment,  setup it if didn''t had.
 
 | option | argument   | explain                                                      | example                               |
 | :----- | ---------- | ------------------------------------------------------------ | ------------------------------------- |
-|        |            | compress the image under direcotry                           | `java -jar tingyimg.jar`              |
+| `-h`   |            | help document                                                | `java -jar -h`                        |
+|        |            | compress the image under direcotry                           | `java -jar tinyyimg.jar`              |
 | `－k`  | `APK_KEY`  | `API_KEY` apply from TinyPNG                                 | `java -jar tinyimg.jar -k API_KYE`    |
 | `－i`  | input path | path of image or directory                                   | `java -jar tinyimg.jar -i inputPath`  |
 | `-o`   | ouput path | path of image or directory                                   | `java -jar tinyimg.jar -o outputPath` |

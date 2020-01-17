@@ -41,7 +41,7 @@ static {
 
 **如果想偷懒可以试试下面的方法：**
 
-1. 直接下载已经构建好的  [tinyimg.jar](https://raw.githubusercontent.com/ytempest/TinyImg/master/tinyimg.jar)  文件
+1. 直接下载已经构建好的  [tinyimg.jar](https://raw.githubusercontent.com/ytempest/TinyImg/master/tinyimg.jar)  文件，这个文件内置了一个 `API_KEY`，但不确定是否还有效，建议还是替换掉。
 2. 以压缩文件的方式打开，注意不要解压！！！找到里面的  `com/ytempest/tinyimg/TinyHelper.class` 文件，将这个文件解压出来
 3. 用 notepad++ 打开这个 `class` 文件【其他编辑器也可以，只要编码格式是 `ANSI` 就可以】，
 搜索`FC8dkDxbNVlJHL9JpmfCT0YzzRgVXZXT`，将其替换成你的 `API_KEY` 后保存
@@ -65,7 +65,8 @@ static {
 
 |选项|参数|说明|示例|
 | :---- | -------- | ---------------------------------- | --------------------------------------- |
-|   |          | 压缩当前文件夹下图片文件       | `java -jar tingyimg.jar`        |
+|`-h`||帮助手册|`java -jar tinyimg.jar`|
+|   |          | 压缩当前文件夹下图片文件       | `java -jar tinyyimg.jar`       |
 | `－k` | `APK_KEY` | 从 TinyPNG 申请的 `API_KEY` | `java -jar tinyimg.jar -k API_KYE` |
 | `－i` | 输入路径 | 图片路路径或文件夹路径 | `java -jar tinyimg.jar -i inputPath` |
 | `-o` | 输出路劲 | 图片路径或文件夹路径 | `java -jar tinyimg.jar -o outputPath` |
