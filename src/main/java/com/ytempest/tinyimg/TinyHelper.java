@@ -40,19 +40,20 @@ public class TinyHelper {
      * @param tarFilePath output path of image compress success
      */
     public static void compress(String srcFilePath, String tarFilePath) {
+        String relativePah = getRelativePah(srcFilePath);
         try {
-            LogUtils.d("upload and compress : " + srcFilePath);
+            LogUtils.d("compress : " + relativePah);
             long beforeSize = new File(srcFilePath).length();
             Source source = Tinify.fromFile(srcFilePath);
             Result result = source.result();
 
-            LogUtils.d("download to : " + srcFilePath);
+            LogUtils.d("download : " + relativePah);
             long afterSize = result.size();
             result.toFile(tarFilePath);
 
-            LogUtils.d(String.format("finish compress : %s, size: %skb -> %skb", srcFilePath, beforeSize, afterSize));
+            LogUtils.d(String.format("finish compress : %s, size: %skb -> %skb", relativePah, beforeSize, afterSize));
         } catch (Exception e) {
-            LogUtils.e("Fail to compress : " + srcFilePath);
+            LogUtils.e("Fail to compress : " + relativePah);
             LogUtils.e("The error message is: " + e.getMessage());
 
             if (e instanceof AccountException) {
@@ -71,5 +72,10 @@ public class TinyHelper {
                 LogUtils.e("Something else went wrong, unrelated to the Tinify API");
             }
         }
+    }
+
+    private static String getRelativePah(String path) {
+        String curPath = FileUtils.getCurrentDir().getPath();
+        return path.replace(curPath + File.separator, "");
     }
 }
